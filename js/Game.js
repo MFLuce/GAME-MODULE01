@@ -5,10 +5,7 @@ class Game {
     this.healthbar = new HealthBar();
     this.score = 0;
     this.health = 50;
-    //this.background = new Background();
-    //this.obstacles = [];
     this.monsters = [];
-    //this.bonus =[];
   }
   //1.2 The setup of the game and I call it in the main.js : I build the canvas//
   setup() {
@@ -27,7 +24,7 @@ class Game {
       this.monsters.push(new Monster());
     }
 
-    this.monsters.forEach((monster) => {
+    this.monsters.forEach((monster, index) => {
       monster.draw();
     });
 

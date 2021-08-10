@@ -16,15 +16,17 @@ class Monster {
   constructor(xPosition, yPosition) {
     this.width = random(50, 150);
     this.height = random(25, 75);
-    this.radius = 20;
     this.x = CANVAS_WIDTH + this.width;
     this.y = random(0, CANVAS_HEIGHT - this.height);
+    this.monsterImg =
+      MONSTERS_GALLERY[Math.floor(random(0, MONSTERS_GALLERY.length - 1))];
   }
   draw() {
-    push();
-    fill("pink");
-    rect(this.x, this.y, this.width, this.height, this.radius);
-    pop();
+    //push();
+    //fill("pink");
+    //rect(this.x, this.y, this.width, this.height);
+    //pop();
+    image(this.monsterImg, this.x, this.y, this.width, this.height);
     this.move();
   }
 
