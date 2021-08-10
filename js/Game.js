@@ -7,7 +7,7 @@ class Game {
     //this.monsters = [];
     //this.bonus =[];
   }
-  //1.2 The setup of the game and i call it in the main.js : I build the canvas//
+  //1.2 The setup of the game and I call it in the main.js : I build the canvas//
   setup() {
     createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
   }

@@ -6,14 +6,15 @@ class Player {
     this.x = LeftPosition;
     //y is the top value
     this.y = TopPosition;
-    //this.right = this.left + this.width;
-    //this.bottom = this.top +this.height;
-    this.rightBoundary = CANVAS_WIDTH - this.width;
-    this.bottomBoundary = CANVAS_HEIGHT - this.height;
     this.width = 50;
     this.height = 50;
+    /* !!!! BE CAREFUL : PUT THE BOUNDARIES AFTER THE DEFINITION
+    OF THE VALUE YOU PUT IN BOUNDARIES : I put this.width 
+    after the boundaries and it's not working*/
+    this.rightBoundary = CANVAS_WIDTH - this.width;
+    this.bottomBoundary = CANVAS_HEIGHT - this.height;
   }
-  //1.7 I put the element of the player, in this case it's a square
+  //1.7 I put the element of the player, for the moment it's a square
   draw() {
     this.move();
     this.maintainBoundaries();
@@ -38,7 +39,7 @@ class Player {
   // CAN'T GO OVER ON THE RIGHT SIDE
   CantGoOverRight() {
     if (this.x >= this.rightBoundary) {
-      this.x = 0;
+      this.x = this.rightBoundary;
     }
   }
   // CAN'T GO OVER ON THE LEFT SIDE

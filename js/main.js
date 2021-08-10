@@ -1,6 +1,6 @@
 /* 1.1 I put the P5 functions that I need*/
 
-//I create the constant game to 
+//I create the constant game to initiate the game
 const game = new Game();
 
 /*1.3 This function is called once and before the others except preload 
