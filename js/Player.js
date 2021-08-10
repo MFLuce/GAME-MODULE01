@@ -6,8 +6,8 @@ class Player {
     this.x = LeftPosition;
     //y is the top value
     this.y = TopPosition;
-    this.width = 50;
-    this.height = 50;
+    this.width = 100;
+    this.height = 100;
     /* !!!! BE CAREFUL : PUT THE BOUNDARIES AFTER THE DEFINITION
     OF THE VALUE YOU PUT IN BOUNDARIES : I put this.width 
     after the boundaries and it's not working*/
@@ -18,7 +18,8 @@ class Player {
   draw() {
     this.move();
     this.maintainBoundaries();
-    rect(this.x, this.y, this.width, this.height);
+    //rect(this.x, this.y, this.width, this.height);
+    image(spaceshipImg, this.x, this.y, this.width, this.height);
   }
 
   move() {

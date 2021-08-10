@@ -14,4 +14,6 @@ const LEFT_ARROW = 37;
 
 const RIGHT_ARROW = 39;
 
+//DOM MANIPULATIONS TO PERSONALIZE THE USER EXPERIENCE
+//It's the selector where we want to put score
 const scoreHolder = document.querySelector("h1 span");
