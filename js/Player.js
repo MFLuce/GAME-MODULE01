@@ -8,6 +8,8 @@ class Player {
     this.y = TopPosition;
     this.width = 100;
     this.height = 100;
+    this.speed = 5;
+    this.health = 450;
     /* !!!! BE CAREFUL : PUT THE BOUNDARIES AFTER THE DEFINITION
     OF THE VALUE YOU PUT IN BOUNDARIES : I put this.width 
     after the boundaries and it's not working*/
@@ -25,16 +27,16 @@ class Player {
   move() {
     // I put the keyboard key I need to move the player
     if (keyIsDown(DOWN_ARROW)) {
-      this.y += 5;
+      this.y += this.speed;
     }
     if (keyIsDown(UP_ARROW)) {
-      this.y -= 5;
+      this.y -= this.speed;
     }
     if (keyIsDown(LEFT_ARROW)) {
-      this.x -= 5;
+      this.x -= this.speed;
     }
     if (keyIsDown(RIGHT_ARROW)) {
-      this.x += 5;
+      this.x += this.speed;
     }
   }
   // CAN'T GO OVER ON THE RIGHT SIDE
@@ -66,5 +68,24 @@ class Player {
     this.CantGoOverLeft();
     this.CantGoOverTop();
     this.CantGoOverBottom();
+  }
+
+  receiveDamage(damage) {
+    this.health -= damage;
+  }
+
+  get bottomSide() {
+    return this.y + this.height;
+  }
+
+  get topSide() {
+    return this.y;
+  }
+
+  get leftSide() {
+    return this.x;
+  }
+  get rightSide() {
+    return this.x + this.width;
   }
 }

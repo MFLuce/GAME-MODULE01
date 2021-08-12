@@ -14,23 +14,41 @@ monster and call it in the draw of the monster.
 
 class Monster {
   constructor(xPosition, yPosition) {
-    this.width = random(50, 150);
-    this.height = random(25, 75);
+    //this.width = random(50, 150);
+    //this.height = random(25, 75);
+    this.width = 100;
+    this.height = 100;
     this.x = CANVAS_WIDTH + this.width;
     this.y = random(0, CANVAS_HEIGHT - this.height);
+    this.damage = 2;
+    this.speed = 3;
     this.monsterImg =
       MONSTERS_GALLERY[Math.floor(random(0, MONSTERS_GALLERY.length - 1))];
   }
+
   draw() {
     //push();
     //fill("pink");
     //rect(this.x, this.y, this.width, this.height);
     //pop();
     image(this.monsterImg, this.x, this.y, this.width, this.height);
-    this.move();
+    this.x -= this.speed;
   }
 
-  move() {
-    this.x -= 3;
+  /*We need these values to do the collision check and the get values are 
+  computer values and used for external purpose*/
+  get bottomSide() {
+    return this.y + this.height;
+  }
+
+  get topSide() {
+    return this.y;
+  }
+
+  get leftSide() {
+    return this.x;
+  }
+  get rightSide() {
+    return this.x + this.width;
   }
 }
