@@ -24,5 +24,6 @@ let MONSTERS_GALLERY = [
 ];
 
 //DOM MANIPULATIONS TO PERSONALIZE THE USER EXPERIENCE
-//It's the selector where we want to put score
+//It's the selector where we want to put some informations
 const scoreHolder = document.querySelector("h1 span");
+const gameOver = document.getElementById("gameOver");

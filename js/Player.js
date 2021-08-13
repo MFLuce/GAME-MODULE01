@@ -8,7 +8,7 @@ class Player {
     this.y = TopPosition;
     this.width = 100;
     this.height = 100;
-    this.speed = 5;
+    this.speed = 2;
     this.health = 450;
     /* !!!! BE CAREFUL : PUT THE BOUNDARIES AFTER THE DEFINITION
     OF THE VALUE YOU PUT IN BOUNDARIES : I put this.width 
@@ -87,5 +87,8 @@ class Player {
   }
   get rightSide() {
     return this.x + this.width;
+  }
+  get gunPoint() {
+    return 
   }
 }

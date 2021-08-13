@@ -13,15 +13,17 @@ monster and call it in the draw of the monster.
 1.5 I must call the draw monster in the game but it's an array so I must do a loop */
 
 class Monster {
-  constructor(xPosition, yPosition) {
+  constructor(speed) {
     //this.width = random(50, 150);
     //this.height = random(25, 75);
     this.width = 100;
     this.height = 100;
     this.x = CANVAS_WIDTH + this.width;
     this.y = random(0, CANVAS_HEIGHT - this.height);
-    this.damage = 2;
-    this.speed = 3;
+    this.health = 400;
+    this.strength = 1;
+    const theRealSpeed = 2 * speed;
+    this.speed = theRealSpeed;
     this.monsterImg =
       MONSTERS_GALLERY[Math.floor(random(0, MONSTERS_GALLERY.length - 1))];
   }
@@ -50,5 +52,9 @@ class Monster {
   }
   get rightSide() {
     return this.x + this.width;
+  }
+
+  receiveDamage(damage) {
+    this.health -= damage;
   }
 }
