@@ -21,10 +21,11 @@ class Monster {
     this.x = CANVAS_WIDTH + this.width;
     this.y = random(0, CANVAS_HEIGHT - this.height);
     this.health = 400;
-    this.strength = 1;
-    const theRealSpeed = 2 * speed;
+    this.strength = 100;
+    const theRealSpeed = 1 * speed;
     this.speed = theRealSpeed;
-    this.monsterImg =
+    this.hasHit = false;
+    this.shipImg =
       MONSTERS_GALLERY[Math.floor(random(0, MONSTERS_GALLERY.length - 1))];
   }
 
@@ -33,7 +34,7 @@ class Monster {
     //fill("pink");
     //rect(this.x, this.y, this.width, this.height);
     //pop();
-    image(this.monsterImg, this.x, this.y, this.width, this.height);
+    image(this.shipImg, this.x, this.y, this.width, this.height);
     this.x -= this.speed;
   }
 

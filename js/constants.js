@@ -14,13 +14,8 @@ const LEFT_ARROW = 37;
 
 const RIGHT_ARROW = 39;
 
-let MONSTERS_GALLERY = [
-  monster1Img,
-  monster2Img,
-  monster3Img,
-  monster4Img,
-  monster5Img,
-  monster6Img,
+let ENNEMIES_EXPLOSION = [
+  { name: "ennemy01", startImg: "./assets/Monster1.png" },
 ];
 
 //DOM MANIPULATIONS TO PERSONALIZE THE USER EXPERIENCE

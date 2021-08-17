@@ -1,7 +1,7 @@
 class Player {
   /*1.6 If i put parameter in the constructor and define them, I could change them 
     directly when I create the new player in the Game class*/
-  constructor(LeftPosition, TopPosition) {
+  constructor(LeftPosition, TopPosition) {// !!!! If I put parameter here I can define and use it in the Game Class (external)
     // x is the left value
     this.x = LeftPosition;
     //y is the top value
@@ -87,8 +87,5 @@ class Player {
   }
   get rightSide() {
     return this.x + this.width;
-  }
-  get gunPoint() {
-    return 
   }
 }

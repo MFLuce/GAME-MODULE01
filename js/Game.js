@@ -6,7 +6,9 @@ class Game {
     this.score = 0;
     this.monsters = [];
     this.bullets = [];
-    this.gameDifficulty = 1;
+    this.gameDifficulty = 1; //The speed of monsters
+    this.bulletEfficiency = 10; //The damage of bullets
+    this.bulletSpeed = 1; //The speed of bullets
   }
   //1.2 The setup of the game and I call it in the main.js : I build the canvas//
   setup() {
@@ -36,31 +38,79 @@ class Game {
       }
       //collisionCheck is true so remove health of player
       if (this.collisionCheck(this.player, monster)) {
+        console.log("TOUCHIT");
         this.player.receiveDamage(monster.strength);
         //this.gameDifficulty = 1;
         scoreHolder.innerText = this.score;
         // this.player.speed = ;
-        if (this.player.health === 0) {
+        if (this.player.health <= 0) {
           gameOver.innerText = "GAME OVER";
           noLoop();
         }
       }
     });
+    this.keyPressed();
+  }
+  // lets have bullet from middle of spaceship
+  // you had a problem, because bullets dont know what player is
+  // we need to have the game pass necessary information to the bullet
+  // you need to pass the x position to the bullet: player.rightSide
+  // you need to pass the y - it will be the middle of the player:
+  // player.topSide + (player.height / 2)
 
-    //Bullet draw:
-    //if (keyIsDown(SPACE_BAR)) {
-    if (frameCount % 90 === 0) {
-      this.bullets.push(new Bullet());
+  /*Bullet draw:
+    if (keyIsDown(SPACE_BAR)) {
+      if (frameCount % 60 === 0) {
+        this.bullets.push(
+          new Bullet(
+            this.player.rightSide,
+            this.player.topSide + this.player.height / 2
+          )
+        );
+      }
+
+      this.bullets.forEach((bullet, index) => {
+        bullet.draw();
+        //create bullets but once they disappear from the screen,
+        // need to remove them from the array:
+        //if (bullet.x + bullet.d <= 0) {
+        //this.bullets.splice(index, 1);
+        //}
+      });
+    }*/
+  keyPressed() {
+    if (keyCode === 32) {
+      if (frameCount % 30 === 0) {
+        this.bullets.push(
+          new Bullet(
+            this.player.rightSide,
+            this.player.topSide + this.player.height / 2,
+            5,
+            2,
+            2
+          )
+        );
+      }
+
+      this.bullets.forEach((bullet, index) => {
+        bullet.draw();
+
+        if (bullet.x - bullet.radius >= CANVAS_WIDTH) {
+          this.bullets.splice(index, 1);
+        }
+        //bulletMonsterCollisionCheck is true so remove health of monster
+        if (this.bulletMonsterCollisionCheck()) {
+          console.log("BULLET HIT");
+          this.monster.receiveDamage(bullet.damage);
+          //this.gameDifficulty = 1;
+          // this.player.speed = ;
+          if (monster.health <= 0) {
+            gameOver.innerText = "GAME OVER";
+            noLoop();
+          }
+        }
+      });
     }
-    //}
-    this.bullets.forEach((bullet, index) => {
-      bullet.draw();
-      //create bulletss but once they disappear from the screen,
-      // need to remove them from the array:
-      /*if (.x + monster.width <= 0) {
-        this.monsters.splice(index, 1);
-      }*/
-    });
   }
 
   collisionCheck(player, monster) {
@@ -70,21 +120,90 @@ class Game {
     // TA < UB
 
     if (player.bottomSide < monster.topSide) {
-      return false;
+      return false; //They don't touch each other
     }
 
     if (player.rightSide < monster.leftSide) {
-      return false;
+      return false; //They don't touch each other
     }
 
     if (player.leftSide > monster.rightSide) {
-      return false;
+      return false; //They don't touch each other
     }
 
     if (player.topSide > monster.bottomSide) {
+      return false; //They don't touch each other
+    }
+
+    if (monster.hasHit) {
       return false;
     }
 
+    //if it reaches here, its touching the player
+    monster.hasHit = true;
+    return true;
+  }
+  //create bullets but once they disappear from the screen,
+  // need to remove them from the array:
+  //if (bullet.x + bullet.r <= 0) {
+  //this.bullets.splice(index, 1);
+  //}
+  //I check if the bullet collides the monster so
+  //I use the dist method to mesure the distance between
+  //the center of the circle and the position of the monster.
+  //If the distance is more than the radius of the circle,
+  //they don't touch.
+  bulletMonsterCollisionCheck(monster, bullet) {
+    if (
+      dist(
+        this.player.rightSide,
+        this.player.topSide + this.player.height / 2,
+        monster.leftSide,
+        monster.topSide
+      ) > bullet.radius
+    ) {
+      return false;
+    }
+
+    if (
+      dist(
+        this.player.rightSide,
+        this.player.topSide + this.player.height / 2,
+        monster.leftSide,
+        monster.bottomSide
+      ) > bullet.radius
+    ) {
+      return false;
+    }
+
+    if (
+      dist(
+        this.player.rightSide,
+        this.player.topSide + this.player.height / 2,
+        monster.rightSide,
+        monster.topSide
+      ) > bullet.radius
+    ) {
+      return false;
+    }
+
+    if (
+      dist(
+        this.player.rightSide,
+        this.player.topSide + this.player.height / 2,
+        monster.rightSide,
+        monster.bottomSide
+      ) > bullet.radius
+    ) {
+      return false;
+    }
+
+    if (bullet.bulletHit) {
+      return false;
+    }
+
+    //if it reaches here, its touching the bullet
+    bullet.bulletHit = true;
     return true;
   }
 }
