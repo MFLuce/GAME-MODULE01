@@ -15,6 +15,6 @@ function draw() {
   game.draw();
 }
 
-/*function keyPressed() {
+function keyPressed() {
   game.keyPressed();
-}*/
+}

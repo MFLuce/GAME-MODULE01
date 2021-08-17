@@ -21,10 +21,10 @@ class Monster {
     this.x = CANVAS_WIDTH + this.width;
     this.y = random(0, CANVAS_HEIGHT - this.height);
     this.health = 400;
-    this.strength = 100;
     const theRealSpeed = 1 * speed;
     this.speed = theRealSpeed;
     this.hasHit = false;
+    this.numberOfHits = 0;
     this.shipImg =
       MONSTERS_GALLERY[Math.floor(random(0, MONSTERS_GALLERY.length - 1))];
   }
@@ -34,7 +34,8 @@ class Monster {
     //fill("pink");
     //rect(this.x, this.y, this.width, this.height);
     //pop();
-    image(this.shipImg, this.x, this.y, this.width, this.height);
+    const img = this.shipImg[this.numberOfHits % this.shipImg.length];
+    image(img, this.x, this.y, this.width, this.height);
     this.x -= this.speed;
   }
 
@@ -53,9 +54,5 @@ class Monster {
   }
   get rightSide() {
     return this.x + this.width;
-  }
-
-  receiveDamage(damage) {
-    this.health -= damage;
   }
 }
