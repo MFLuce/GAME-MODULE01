@@ -6,13 +6,23 @@ class Game {
     this.monsters = [];
     this.bullets = [];
     this.gameDifficulty = 1; //The speed of monsters
-    this.bulletEfficiency = 10; //The damage of bullets
+    this.bulletEfficiency = 50; //The damage of bullets
     this.bulletSpeed = 1; //The speed of bullets
+    this.isPlaying = true;
   }
+
+  /* restartGame() {
+    if (this.isPlaying) {
+      return;
+    }
+    loop();
+  }*/
+
   //1.2 The setup of the game and I call it in the main.js : I build the canvas//
   setup() {
     createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
-    text("tap here to play", 10, 20);
+    soundGame.play();
+    soundGame.setVolume(0.1);
   }
   /*1.4 I create the element of the game with players and monsters or whatever: I call
  all the draw functions here and after I'll call the game function in the main file*/
@@ -24,9 +34,10 @@ class Game {
     if (frameCount % 90 === 0) {
       this.monsters.push(new Monster(this.gameDifficulty));
     }
-    if (frameCount % (60 * 5) === 0) {
-      this.gameDifficulty += 1;
-    }
+    scoreHolder.innerText = this.score;
+    //if (frameCount % (60 * 5) === 0) {
+    //this.gameDifficulty += 1;
+    //}
     //Now we call the draw of the monster :
     this.monsters.forEach((monster, index) => {
       monster.draw();
@@ -37,11 +48,16 @@ class Game {
       }
       if (monster.health <= 0) {
         this.monsters.splice(index, 1);
+        this.score += 400;
+        scoreHolder.innerText = this.score;
+        this.player.speed += 0.5;
+        this.bulletSpeed += 0.5;
       }
       //collisionCheck is true so remove health of player
-      if (this.collisionCheck(this.player, monster)) {
+      if (this.playerCollisionCheck(this.player, monster)) {
         console.log("TOUCHIT");
         this.player.receiveDamage(monster.strength);
+        console.log(`damage= ${monster.strength}`);
         //this.gameDifficulty = 1;
         // this.player.speed = ;
         if (this.player.health <= 0) {
@@ -55,13 +71,11 @@ class Game {
     this.bullets.forEach((bullet, index) => {
       bullet.draw();
       this.monsters.forEach((monster, idx) => {
-        if (this.collisionCheck(bullet, monster)) {
+        if (this.bulletCollisionCheck(bullet, monster)) {
           console.log("BULLET HIT");
-          monster.health -= bullet.damage;
+          monster.health -= this.bulletEfficiency;
+          console.log(`monster health =${monster.health}`);
           monster.numberOfHits++;
-          this.score += 400;
-          scoreHolder.innerText = this.score;
-          this.player.speed += 1;
         }
       });
 
@@ -117,11 +131,15 @@ class Game {
           this.bulletEfficiency
         )
       );
+      bulletSound.play();
+    }
+    if (keyCode === ENTER_RESETGAME) {
+      this.restartGame();
     }
     //  }
   }
 
-  collisionCheck(player, monster) {
+  playerCollisionCheck(player, monster) {
     // UA > TB
     // RA > LB
     // LA < RB
@@ -149,6 +167,37 @@ class Game {
 
     //if it reaches here, its touching the player
     monster.hasHit = true;
+    return true;
+  }
+
+  bulletCollisionCheck(bullet, monster) {
+    // UA > TB
+    // RA > LB
+    // LA < RB
+    // TA < UB
+
+    if (bullet.bottomSide < monster.topSide) {
+      return false; //They don't touch each other
+    }
+
+    if (bullet.rightSide < monster.leftSide) {
+      return false; //They don't touch each other
+    }
+
+    if (bullet.leftSide > monster.rightSide) {
+      return false; //They don't touch each other
+    }
+
+    if (bullet.topSide > monster.bottomSide) {
+      return false; //They don't touch each other
+    }
+
+    if (bullet.hasHit) {
+      return false;
+    }
+
+    //if it reaches here, its touching the monster
+    bullet.hasHit = true;
     return true;
   }
   //create bullets but once they disappear from the screen,

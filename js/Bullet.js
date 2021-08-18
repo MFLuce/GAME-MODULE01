@@ -7,7 +7,7 @@ class Bullet {
     this.radius = 5;
     const theRealDamage = 1.25 * damage;
     this.damage = theRealDamage;
-    const theRealSpeed = 2 * speed;
+    const theRealSpeed = 1 * speed;
     this.speed = theRealSpeed;
     this.bulletHit = false;
   }

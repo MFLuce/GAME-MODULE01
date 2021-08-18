@@ -9,6 +9,7 @@ in the Game Class, so I just call the game setup*/
 function setup() {
   game.setup();
 }
+
 /* 1.5 This function is called 60 times/seconde and it's where I must call 
 the game functions I define in the Game class */
 function draw() {
@@ -18,3 +19,4 @@ function draw() {
 function keyPressed() {
   game.keyPressed();
 }
+

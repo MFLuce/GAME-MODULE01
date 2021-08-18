@@ -21,6 +21,7 @@ class Monster {
     this.x = CANVAS_WIDTH + this.width;
     this.y = random(0, CANVAS_HEIGHT - this.height);
     this.health = 400;
+    this.strength = 150;
     const theRealSpeed = 1 * speed;
     this.speed = theRealSpeed;
     this.hasHit = false;

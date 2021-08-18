@@ -14,6 +14,8 @@ const LEFT_ARROW = 37;
 
 const RIGHT_ARROW = 39;
 
+const ENTER_RESETGAME = 13;
+
 let ENNEMIES_EXPLOSION = [
   { name: "ennemy01", startImg: "./assets/Monster1.png" },
 ];

@@ -18,8 +18,16 @@ let ship3Hit2;
 let ship4Hit2;
 let ship5Hit2;
 let ship6Hit2;
+let soundGame;
+let bulletSound;
 
 function preload() {
+  soundGame = loadSound(
+    "./assets/Sounds/475620__tyops__game-intro-space-futuristic.wav"
+  );
+  bulletSound = loadSound(
+    "./assets/Sounds/387867__runningmind__weapon-player-4.wav"
+  );
   backgroundImg = loadImage("./assets/space-background.jpg");
   spaceshipImg = loadImage("./assets/spaceship-img.png");
   ship1Img = loadImage("./assets/ship1.png");
