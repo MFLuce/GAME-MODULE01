@@ -14,27 +14,21 @@ monster and call it in the draw of the monster.
 
 class Monster {
   constructor(speed) {
-    //this.width = random(50, 150);
-    //this.height = random(25, 75);
     this.width = 100;
     this.height = 100;
     this.x = CANVAS_WIDTH + this.width;
     this.y = random(0, CANVAS_HEIGHT - this.height);
     this.health = 400;
-    this.strength = 150;
+    this.strength = 100;
     const theRealSpeed = 1 * speed;
     this.speed = theRealSpeed;
     this.hasHit = false;
     this.numberOfHits = 0;
     this.shipImg =
-      MONSTERS_GALLERY[Math.floor(random(0, MONSTERS_GALLERY.length))];
+      MONSTERS_GALLERY[Math.floor(random(0, MONSTERS_GALLERY.length - 1))];
   }
 
   draw() {
-    //push();
-    //fill("pink");
-    //rect(this.x, this.y, this.width, this.height);
-    //pop();
     const img = this.shipImg[this.numberOfHits % this.shipImg.length];
     image(img, this.x, this.y, this.width, this.height);
     this.x -= this.speed;

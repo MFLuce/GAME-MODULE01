@@ -1,7 +1,8 @@
 class Player {
   /*1.6 If i put parameter in the constructor and define them, I could change them 
     directly when I create the new player in the Game class*/
-  constructor(LeftPosition, TopPosition) {// !!!! If I put parameter here I can define and use it in the Game Class (external)
+  constructor(LeftPosition, TopPosition) {
+    // !!!! If I put parameter here I can define and use it in the Game Class (external)
     // x is the left value
     this.x = LeftPosition;
     //y is the top value
@@ -9,7 +10,7 @@ class Player {
     this.width = 100;
     this.height = 100;
     this.speed = 2;
-    this.health = 450;
+    this.health = 500;
     /* !!!! BE CAREFUL : PUT THE BOUNDARIES AFTER THE DEFINITION
     OF THE VALUE YOU PUT IN BOUNDARIES : I put this.width 
     after the boundaries and it's not working*/

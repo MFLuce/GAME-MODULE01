@@ -9,6 +9,7 @@ class Game {
     this.bulletEfficiency = 50; //The damage of bullets
     this.bulletSpeed = 1; //The speed of bullets
     this.isPlaying = true;
+    this.healthBar = new HealthBar();
   }
 
   restartGame() {
@@ -29,9 +30,10 @@ class Game {
   draw() {
     background(backgroundImg); // Background always before the player draw!
     this.player.draw(); //1.7 I call the player draw
+    this.healthBar.draw();
     //Now I decide to have a new monster every 1.5 second and add
     //to the initial empty array (this.monsters) :
-    if (frameCount % 90 === 0) {
+    if (frameCount % 120 === 0) {
       this.monsters.push(new Monster(this.gameDifficulty));
     }
     scoreHolder.innerText = this.score;
@@ -54,15 +56,22 @@ class Game {
         this.bulletSpeed += 0.5;
       }
       //collisionCheck is true so remove health of player
-      if (this.playerCollisionCheck(this.player, monster)) {
+      if (this.playerCollisionCheck(this.player, monster, this.healthBar)) {
         console.log("TOUCHIT");
         this.player.receiveDamage(monster.strength);
-        console.log(`damage= ${monster.strength}`);
+        console.log(
+          `Monster Health= ${monster.health} and Player Health = ${this.player.health}`
+        );
+        this.healthBar.healthOfChar -= monster.strength / 5;
+
         //this.gameDifficulty = 1;
         // this.player.speed = ;
         if (this.player.health <= 0) {
-          alert("GAME OVER");
-          document.location.reload();
+          //alert("GAME OVER");
+          fill(255);
+          textAlign(CENTER, CENTER);
+          textSize(80);
+          text("GAME OVER", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
           noLoop();
         }
       }
@@ -139,6 +148,7 @@ class Game {
     }
     if (keyCode === ENTER_RESETGAME) {
       this.restartGame();
+      document.location.reload();
     }
     //  }
   }

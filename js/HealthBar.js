@@ -1,22 +1,25 @@
 class HealthBar {
-  constructor() {
-    this.x = 10;
-    this.y = 10;
+  constructor(healthOfChar) {
+    this.x = 30;
+    this.y = 30;
     this.width = 100;
     this.height = 10;
+    this.healthOfChar = 100;
   }
 
   draw() {
     //Draw the Health Bar:
-    /*stroke(0);
+    fill(255);
+    text("Health Bar", 30, 20);
+
+    stroke(0);
     strokeWeight(4);
     noFill();
-    rect(10, 10, 200, 20);
+    rect(this.x, this.y, this.width, this.height);
 
     noStroke();
     fill(255, 0, 0);
-    rect(10, 10, map(health, 0, maxHealth, 0, 200), 20);*/
-    rect(this.x, this.y, this.width, this.height);
+    rect(this.x, this.y, this.healthOfChar, this.height);
   }
 }
 /*HERE THE FORMULA ANDRE GAVE ME FOR THE HEALTH BAR :
