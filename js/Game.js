@@ -11,17 +11,17 @@ class Game {
     this.isPlaying = true;
   }
 
-  /* restartGame() {
+  restartGame() {
     if (this.isPlaying) {
       return;
     }
     loop();
-  }*/
+  }
 
   //1.2 The setup of the game and I call it in the main.js : I build the canvas//
   setup() {
     createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
-    soundGame.play();
+    soundGame.loop();
     soundGame.setVolume(0.1);
   }
   /*1.4 I create the element of the game with players and monsters or whatever: I call
@@ -131,7 +131,11 @@ class Game {
           this.bulletEfficiency
         )
       );
-      bulletSound.play();
+      if (this.isPlaying) {
+        bulletSound.play();
+      } else {
+        bulletSound.stop();
+      }
     }
     if (keyCode === ENTER_RESETGAME) {
       this.restartGame();

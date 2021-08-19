@@ -27,7 +27,7 @@ class Monster {
     this.hasHit = false;
     this.numberOfHits = 0;
     this.shipImg =
-      MONSTERS_GALLERY[Math.floor(random(0, MONSTERS_GALLERY.length - 1))];
+      MONSTERS_GALLERY[Math.floor(random(0, MONSTERS_GALLERY.length))];
   }
 
   draw() {
