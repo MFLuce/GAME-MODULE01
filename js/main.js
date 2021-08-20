@@ -2,6 +2,7 @@
 
 //I create the constant game to initiate the game
 const game = new Game();
+let stage = 0;
 
 /*1.3 This function is called once and before the others except preload 
 This function creates set up logic of the game.All setup functions are 

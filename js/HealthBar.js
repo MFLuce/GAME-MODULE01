@@ -5,13 +5,17 @@ class HealthBar {
     this.width = 100;
     this.height = 10;
     this.healthOfChar = 100;
+    this.xText = 30;
+    this.yText = 20;
   }
 
   draw() {
     //Draw the Health Bar:
     fill(255);
-    text("Health Bar", 30, 20);
-
+    push();
+    textSize(20);
+    text("Health Bar", this.xText, this.yText);
+    pop();
     stroke(0);
     strokeWeight(4);
     noFill();

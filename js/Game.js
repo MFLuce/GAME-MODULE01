@@ -1,6 +1,11 @@
 class Game {
   constructor() {
     //I create the new player and assign it initials position values:
+    this.healthBar = new HealthBar();
+    this.setEverything();
+  }
+
+  setEverything() {
     this.player = new Player(200, 225);
     this.score = 0;
     this.monsters = [];
@@ -9,13 +14,27 @@ class Game {
     this.bulletEfficiency = 50; //The damage of bullets
     this.bulletSpeed = 1; //The speed of bullets
     this.isPlaying = true;
-    this.healthBar = new HealthBar();
+    this.healthBar.healthOfChar = 100;
   }
 
   restartGame() {
-    if (this.isPlaying) {
-      return;
-    }
+    // if (isLooping()) {
+    //   return;
+    //  }
+    /*    this.player = new Player(200, 225);
+    this.score = 0;
+    this.monsters = [];
+    this.bullets = [];
+    this.gameDifficulty = 1; //The speed of monsters
+    this.bulletEfficiency = 50; //The damage of bullets
+    this.bulletSpeed = 1; //The speed of bullets
+    this.healthBar = new HealthBar(); */
+    //backgroundImg;
+    this.setEverything();
+    this.healthBar.xText = 77;
+    this.healthBar.yText = 14;
+    soundGame.loop();
+    soundGame.setVolume(0.05);
     loop();
   }
 
@@ -23,11 +42,12 @@ class Game {
   setup() {
     createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
     soundGame.loop();
-    soundGame.setVolume(0.1);
+    soundGame.setVolume(0.05);
   }
   /*1.4 I create the element of the game with players and monsters or whatever: I call
  all the draw functions here and after I'll call the game function in the main file*/
   draw() {
+    clear();
     background(backgroundImg); // Background always before the player draw!
     this.player.draw(); //1.7 I call the player draw
     this.healthBar.draw();
@@ -50,40 +70,49 @@ class Game {
       }
       if (monster.health <= 0) {
         this.monsters.splice(index, 1);
+        explosMonstSound.play();
+        explosMonstSound.setVolume(2);
         this.score += 400;
         scoreHolder.innerText = this.score;
-        this.player.speed += 0.5;
-        this.bulletSpeed += 0.5;
+        this.player.speed += 0.25;
+        this.bulletSpeed += 5;
       }
       //collisionCheck is true so remove health of player
       if (this.playerCollisionCheck(this.player, monster, this.healthBar)) {
         console.log("TOUCHIT");
         this.player.receiveDamage(monster.strength);
-        console.log(
-          `Monster Health= ${monster.health} and Player Health = ${this.player.health}`
-        );
+        // console.log(
+        //    `Monster Health= ${monster.health} and Player Health = ${this.player.health}`
+        //  );
         this.healthBar.healthOfChar -= monster.strength / 5;
 
         //this.gameDifficulty = 1;
         // this.player.speed = ;
-        if (this.player.health <= 0) {
-          //alert("GAME OVER");
-          fill(255);
-          textAlign(CENTER, CENTER);
-          textSize(80);
-          text("GAME OVER", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
-          noLoop();
-        }
       }
     });
+
+    if (this.player.health <= 0) {
+      //alert("GAME OVER");
+      this.healthBar.healthOfChar === 0;
+      this.isPlaying = false;
+      soundGame.stop();
+      //bulletSound.stop();
+      fill(255);
+      textAlign(CENTER, CENTER);
+      push();
+      textSize(80);
+      text("GAME OVER", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+      pop();
+      noLoop();
+    }
 
     this.bullets.forEach((bullet, index) => {
       bullet.draw();
       this.monsters.forEach((monster, idx) => {
         if (this.bulletCollisionCheck(bullet, monster)) {
-          console.log("BULLET HIT");
+          //  console.log("BULLET HIT");
           monster.health -= this.bulletEfficiency;
-          console.log(`monster health =${monster.health}`);
+          //   console.log(`monster health =${monster.health}`);
           monster.numberOfHits++;
         }
       });
@@ -148,7 +177,6 @@ class Game {
     }
     if (keyCode === ENTER_RESETGAME) {
       this.restartGame();
-      document.location.reload();
     }
     //  }
   }
